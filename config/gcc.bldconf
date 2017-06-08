@@ -1,0 +1,104 @@
+#!/bin/bash
+#
+# gcc.bldconf - file containing global information necessary to build
+#               PARSEC with gcc
+#
+# Copyright (C) 2006-2009 Princeton University
+# Written by Christian Bienia (Initial version)
+#            Christian Fensch (Sparc/Solaris port)
+
+# Compilation and linking options
+# These are the global options we'll use to build the benchmark suite. Each
+# package also has a local build configuration file defining the exact
+# arguments and environment to use.
+
+
+# Determine OS-specific paths and prefixes
+# We first determine the various directories typically used for the GNU
+# binaries, then we use that information to define the binary locations.
+# The values for Linux are at the end and also the default values.
+
+export TILE_MDE_HOME="`which tile-gcc|sed 's/\/bin\/tile-gcc$//'`"
+export TILE_BIN_PREFIX=${TILE_MDE_HOME}/bin/tile-
+export TILE_FMP_SDK="/home/liyixiao/manycore/fmp-tilegx/fmp/tile-sdk"
+
+# Compilers and preprocessors
+export CC="${TILE_BIN_PREFIX}gcc"
+export CXX="${TILE_BIN_PREFIX}g++ -fno-rtti -fno-exceptions"
+#-fno-threadsafe-statics"
+export CPP="${TILE_BIN_PREFIX}cpp"
+export CXXCPP=""
+
+# GNU Binutils
+export LD="${TILE_BIN_PREFIX}ld"
+export AS="${TILE_BIN_PREFIX}as"
+export AR="${TILE_BIN_PREFIX}ar"
+export RANLIB="${TILE_BIN_PREFIX}ranlib"
+export STRIP="${TILE_BIN_PREFIX}strip"
+
+# GNU Tools
+export M4="m4"
+export MAKE="make"
+
+# Flags for increased portability of binaries
+#PORTABILITY_FLAGS="-static-libgcc -Wl,--hash-style=both,--as-needed"
+PORTABILITY_FLAGS="${PORTABILITY_FLAGS} -nostdinc "
+PORTABILITY_FLAGS+="-nostdlib \
+    -isystem${PARSECDIR}/fmp_sysroot \
+    -isystem${TILE_FMP_SDK}/common/library/newlib/newlib-1.13.0/newlib/libc/include \
+    -isystem${TILE_FMP_SDK}/common/library/newlib/include \
+    -I${TILERA_ROOT}/tile/usr/lib/gcc/tilegx-redhat-linux/4.4.4/include \
+    -isystem/home/liyixiao/manycore/fmp-tilegx/fmp/include \
+    -isystem/home/liyixiao/manycore/fmp-tilegx/fmp/target/tilencore_gx36_gcc \
+    -isystem/home/liyixiao/manycore/fmp-tilegx/fmp/arch \
+    -isystem/home/liyixiao/manycore/fmp-tilegx/fmp/arch/tilegx_gcc/common \
+    -isystem/home/liyixiao/manycore/fmp-tilegx/fmp/tile-sdk/common/library/posix/include \
+    -D'__nonnull(params)=__attribute__ ((__nonnull__ params))' \
+    -D'__attribute_deprecated__=__attribute__ ((__deprecated__))' \
+    -D'__clockid_t=long' \
+    -D'__toppers__' -D__DYNAMIC_REENT__ \
+    -Wl,--hash-style=both,--as-needed -static"
+
+# Arguments to use
+export CFLAGS=" -O3 -g -funroll-loops -fprefetch-loop-arrays ${PORTABILITY_FLAGS}"
+export CXXFLAGS="-O3 -g -funroll-loops -fprefetch-loop-arrays -fpermissive -fno-exceptions ${PORTABILITY_FLAGS}"
+export CPPFLAGS=""
+export CXXCPPFLAGS=""
+#export LDFLAGS="-L${CC_HOME}/lib64 -L${CC_HOME}/lib"
+export LDFLAGS="-L${TILE_MDE_HOME}/tile/usr/lib"
+export LIBS=""
+export EXTRA_LIBS=""
+export PARMACS_MACRO_FILE="pthreads"
+
+# Add PARSEC version to compiler flags
+if [ -f "${PARSECDIR}/version" ]; then
+  CFLAGS="${CFLAGS} -DPARSEC_VERSION=$(${CAT} ${PARSECDIR}/version)"
+  CXXFLAGS="${CXXFLAGS} -DPARSEC_VERSION=$(${CAT} ${PARSECDIR}/version)"
+fi
+
+# Java
+export JAVA_HOME="/usr"
+export JAVAC="${JAVA_HOME}/bin/javac"
+
+# Version numbers
+if [ -x ${CC} ]; then
+  CC_ver=$(${CC} --version)
+else
+  CC_ver=""
+fi
+if [ -x ${CXX} ]; then
+  CXX_ver=$(${CXX} --version)
+else
+  CXX_ver=""
+fi
+if [ -x ${LD} ]; then
+  LD_ver=$(${LD} --version)
+else
+  LD_ver=""
+fi
+if [ -x ${JAVAC} ]; then
+  JAVAC_ver=$(${JAVAC} -version 2>&1)
+else
+  JAVAC_ver=""
+fi
+

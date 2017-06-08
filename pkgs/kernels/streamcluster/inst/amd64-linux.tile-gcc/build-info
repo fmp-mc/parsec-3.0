@@ -1,0 +1,40 @@
+PARSEC Compile Information
+==========================
+Package 'parsec.streamcluster'
+Built on Fri May 12 03:56:27 JST 2017
+
+Configure arguments:  --prefix=/home/liyixiao/manycore/fmp-tilegx/parsec-3.0/pkgs/kernels/streamcluster/inst/amd64-linux.tile-gcc
+
+Environment modifications: version=pthreads
+
+CC: /home/mnt/mount-point/mde/TileraMDE-4.3.4.193953/tilegx/bin/tile-gcc
+Version: tile-gcc (GCC) 4.4.7 20131017 (Tilera 4.4.7-3)
+Copyright (C) 2010 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+CFLAGS:  -O3 -g -funroll-loops -fprefetch-loop-arrays  -static-libgcc -Wl,--hash-style=both,--as-needed         -isystem/home/liyixiao/manycore/fmp-tilegx/parsec-3.0/fmp_sysroot -DBUILD_PARSEC_FOR_LINUX -DPARSEC_VERSION=3.0-beta-20150206
+
+CXX: /home/mnt/mount-point/mde/TileraMDE-4.3.4.193953/tilegx/bin/tile-g++
+Version: tile-g++ (GCC) 4.4.7 20131017 (Tilera 4.4.7-3)
+Copyright (C) 2010 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+CXXFLAGS: -O3 -g -funroll-loops -fprefetch-loop-arrays -fpermissive  -static-libgcc -Wl,--hash-style=both,--as-needed         -isystem/home/liyixiao/manycore/fmp-tilegx/parsec-3.0/fmp_sysroot -DBUILD_PARSEC_FOR_LINUX -DPARSEC_VERSION=3.0-beta-20150206
+
+CCAS: 
+Version: 
+CCASFLAGS: 
+
+LD: /home/mnt/mount-point/mde/TileraMDE-4.3.4.193953/tilegx/bin/tile-ld
+Version: GNU ld (GNU Binutils) 2.21
+Copyright 2010 Free Software Foundation, Inc.
+This program is free software; you may redistribute it under the terms of
+the GNU General Public License version 3 or (at your option) a later version.
+This program has absolutely no warranty.
+LDFLAGS: -L/home/mnt/mount-point/mde/TileraMDE-4.3.4.193953/tilegx/lib64 -L/home/mnt/mount-point/mde/TileraMDE-4.3.4.193953/tilegx/lib
+
+JAVAC: /usr/bin/javac
+Version: javac 1.7.0_95
+JFLAGS: 
+
+[EOF]
